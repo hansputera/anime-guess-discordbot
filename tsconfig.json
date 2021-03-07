@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "allowJs": true,
+        "module": "CommonJS",
+        "target": "ES2017",
+        "pretty": true,
+        "outDir": "./build",
+        "strict": true,
+        "esModuleInterop": true,
+        "resolveJsonModule": true
+    },
+    "exclude": ["node_modules"],
+    "include": ["src/**/*"]
+}
