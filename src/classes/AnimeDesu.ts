@@ -45,7 +45,7 @@ class AnimeDesu {
                 if (!this.getGuild(guildID)) return;
                 this.remGuild(guildID);
                 m.delete();
-                channel.send('Kayaknya gada yang berhasil jawab deh <3\nJawabannya adalah: ' + anime.details.judul);
+                channel.send('Kayaknya gada yang berhasil jawab deh <3\nJawabannya adalah: ' + anime.details.judul).then(mes => mes.delete({ timeout: 5000 }));
             }, 30 * 1000)
         });
         return true;

@@ -4,6 +4,8 @@ Sebuah bot discord yang mengirim tebak-tebakan anime ke channel yang telah di se
 
 # Screenshots
 
-![Screenshot 1](https://cdn.discordapp.com/attachments/811929307042545694/818339929809485834/unknown.png)
+![Screenshot 1](https://cdn.discordapp.com/attachments/811929307042545694/818343228982034482/unknown.png)
 
-![Screenshot 2](https://cdn.discordapp.com/attachments/811929307042545694/818340437802221568/unknown.png)
+![Screenshot 2](https://cdn.discordapp.com/attachments/811929307042545694/818343562806296587/unknown.png)
+
+![Screenshot 3](https://cdn.discordapp.com/attachments/811929307042545694/818344001157070868/unknown.png)
