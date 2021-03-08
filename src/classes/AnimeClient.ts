@@ -32,6 +32,7 @@ export default class AnimeClient extends AkairoClient {
         aliasReplacement: /-/g,
         storeMessages: true,
         commandUtil: true,
+        handleEdits: true,
         commandUtilLifetime: 3e5,
         defaultCooldown: 5000,
         argumentDefaults: {
@@ -60,6 +61,6 @@ export default class AnimeClient extends AkairoClient {
 
     public start() {
         this._init();
-        return this.login(config.TOKEN);
+        return this.login(process.env.TOKEN);
     }
 }

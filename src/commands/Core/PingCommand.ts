@@ -4,7 +4,7 @@ import type { Message } from "discord.js";
 export default class PingCommand extends Command {
     constructor() {
         super('ping', {
-            aliases: ['pong'],
+            aliases: ['pong', 'ping'],
             editable: true,
             ratelimit: 3,
             description: 'Bermain Ping Pong!',

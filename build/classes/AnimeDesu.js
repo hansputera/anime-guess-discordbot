@@ -1,41 +1,40 @@
-import { Collection, MessageEmbed, TextChannel } from "discord.js";
-import OtakuDesu from "otakudesu-scrape";
-import type { Desu } from "../typings";
-import type AnimeClient from "./AnimeClient";
-const otakudesu = new OtakuDesu();
-
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const discord_js_1 = require("discord.js");
+const otakudesu_scrape_1 = __importDefault(require("otakudesu-scrape"));
+const otakudesu = new otakudesu_scrape_1.default();
 async function generate() {
     const animes = await otakudesu.home();
     const randomIndex = Math.floor(Math.random() * animes.length);
     const anime = await otakudesu.anime(animes[randomIndex].parse_name);
     const filterNames = anime.title.split(' ').filter(t => /^[\w.-]+$/gi.test(t));
-    return {
-        parse: animes[randomIndex].parse_name,
-        regex: new RegExp(`(${filterNames.join('|')})`, 'gi'),
-        ...anime
-    }
+    return Object.assign({ parse: animes[randomIndex].parse_name, regex: new RegExp(`(${filterNames.join('|')})`, 'gi') }, anime);
 }
-
 class AnimeDesu {
-    constructor(private client: AnimeClient) {}
-    public works: Collection<string, Desu> = new Collection();
-
-    public getGuild(guildID: string) {
+    constructor(client) {
+        this.client = client;
+        this.works = new discord_js_1.Collection();
+    }
+    getGuild(guildID) {
         return this.works.get(guildID);
     }
-    public async addGuild(guildID: string, channel: TextChannel) {
+    async addGuild(guildID, channel) {
         const work = this.getGuild(guildID);
-        if (work) return false;
+        if (work)
+            return false;
         const anime = await generate();
-        function censorTitle(str: string) {
+        function censorTitle(str) {
             return str[3] + '*'.repeat(str.length - 2) + str.slice(-1);
         }
-        const embed = new MessageEmbed()
-        .setColor('RANDOM')
-        .setTitle(censorTitle(anime.title))
-        .setImage(anime.image)
-        .setDescription('Ayo tebak ini anime apa?')
-        .setTimestamp();
+        const embed = new discord_js_1.MessageEmbed()
+            .setColor('RANDOM')
+            .setTitle(censorTitle(anime.title))
+            .setImage(anime.image)
+            .setDescription('Ayo tebak ini anime apa?')
+            .setTimestamp();
         const m = await channel.send(embed);
         this.works.set(guildID, {
             regex: anime.regex,
@@ -52,14 +51,14 @@ class AnimeDesu {
         });
         return true;
     }
-    public remGuild(guildID: string) {
+    remGuild(guildID) {
         const work = this.getGuild(guildID);
-        if (!work) return undefined;
+        if (!work)
+            return undefined;
         this.works.delete(guildID);
         return work;
     }
 }
-
-export default {
+exports.default = {
     generate, AnimeDesu
 };
