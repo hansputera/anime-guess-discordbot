@@ -31,7 +31,7 @@ export default class SearchAnimeCommand extends Command {
 
         const episodesText = anime0info.episodes.map(ep => `- **[${ep.title}](${ep.url})**`).filter((_, i) => i < 5);
         const batchEpisode = anime0info.episodes.find(ep => /batch/gi.test(ep.title));
-        const batchDownloads = batchEpisode ? (await otaku.downloads(batchEpisode.url))![0].links : undefined;
+        const batchDownloads = batchEpisode ? (await otaku.downloads(batchEpisode.url))![0].links : undefined
 
         let downloadText: string | undefined = "";
         if (batchDownloads) {

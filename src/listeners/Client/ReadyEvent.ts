@@ -1,4 +1,5 @@
 import { Listener } from "discord-akairo";
+import type { TextChannel } from "discord.js";
 import type AnimeClient from "../../classes/AnimeClient";
 
 export default class ReadyEvent extends Listener {
@@ -12,6 +13,16 @@ export default class ReadyEvent extends Listener {
 
     public exec() {
         console.log(this.client.user!.tag, 'is ready');
+        setInterval(() => {
+            this.client.guilds.cache.forEach(async g => {
+                const work = this.client.desu.class.getGuild(g.id);
+                if (work) return;
+                const guild = await this.client.guildManager.get(g.id);
+                if (!guild || !guild.spawnChannel) return;
+                this.client.desu.class.addGuild(g.id, this.client.channels.cache.get(guild!.spawnChannel) as TextChannel);
+                console.log(g.name, 'appr');
+            });
+        }, 60 * 1000);
         // register each user to database.
         this.client.users.cache.forEach(user => {
             this.client.userManager.all().then(userDBs => {

@@ -12,9 +12,12 @@ export default class MessageEvent extends Listener {
     }
 
     public async exec(message: Message) {
+        if (message.author.bot) return;
         const workGuild = this.client.desu.class.getGuild(message.guild!.id);
         if (workGuild) {
             if (workGuild.m.channel.id === message.channel.id && workGuild.regex.test(message.content)) {
+                workGuild.timeout = undefined;
+                this.client.desu.class.remGuild(workGuild.m.guild!.id);
                 workGuild.m.delete();
                 // if content is match.
                 const balance = Math.floor(Math.random() * 20);
