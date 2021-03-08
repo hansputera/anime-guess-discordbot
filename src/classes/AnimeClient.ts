@@ -16,7 +16,7 @@ export default class AnimeClient extends AkairoClient {
 
     public db: typeof Database = Database;
     public desu = {
-        class: new Desu.AnimeDesu(this),
+        class: new Desu.AnimeDesu(),
         gen: Desu.generate
     };
     public userManager = new UserManager(this);

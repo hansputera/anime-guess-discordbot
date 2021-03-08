@@ -11,13 +11,13 @@ async function generate() {
     const filterNames = anime.details.judul.split(' ').filter(t => /^[\w.-]+$/gi.test(t));
     return {
         parse: animes[randomIndex].parse_name,
-        regex: new RegExp(`(${filterNames.join('|')})`, 'gi'),
+        regex: new RegExp(`(${filterNames.join('|')})$`, 'gi'),
         ...anime
     }
 }
 
 class AnimeDesu {
-    constructor(private client: AnimeClient) {}
+    constructor() {}
     public works: Map<string, Desu> = new Map();
 
     public getGuild(guildID: string) {
@@ -27,12 +27,8 @@ class AnimeDesu {
         const work = this.getGuild(guildID);
         if (work) return false;
         const anime = await generate();
-        function censorTitle(str: string) {
-            return str[0] + '*'.repeat(str.length - 2) + str.slice(-1);
-        }
         const embed = new MessageEmbed()
         .setColor('RANDOM')
-        .setTitle(censorTitle(anime.details.judul))
         .setImage(anime.image)
         .setDescription('Ayo tebak ini anime apa?')
         .setTimestamp();
